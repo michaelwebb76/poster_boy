@@ -3,6 +3,7 @@
 require 'csv'
 require 'highline/import'
 require 'httparty'
+require 'httparty_request_options'
 
 class PosterBoy
   def self.execute(poster_boy_arguments)
@@ -46,21 +47,24 @@ class PosterBoy
     end
 
     def execute
+      method = request_options.method
+      target_url = request_options.target_url
+      options = request_options.to_h
       response = case method.upcase
                  when 'GET'
-                   HTTParty.get(target_url, request_options)
+                   HTTParty.get(target_url, options)
                  when 'POST'
-                   HTTParty.post(target_url, request_options)
+                   HTTParty.post(target_url, options)
                  when 'PATCH'
-                   HTTParty.patch(target_url, request_options)
+                   HTTParty.patch(target_url, options)
                  when 'PUT'
-                   HTTParty.put(target_url, request_options)
+                   HTTParty.put(target_url, options)
                  when 'DELETE'
-                   HTTParty.delete(target_url, request_options)
+                   HTTParty.delete(target_url, options)
                  when 'HEAD'
-                   HTTParty.head(target_url, request_options)
+                   HTTParty.head(target_url, options)
                  when 'OPTIONS'
-                   HTTParty.options(target_url, request_options)
+                   HTTParty.options(target_url, options)
                  else
                    raise "unknown request method #{method}"
                  end
@@ -68,47 +72,17 @@ class PosterBoy
     end
 
     def dry_run_output
-      [
-        "#{method} #{target_url}",
-        ("BASIC AUTHENTICATION: #{basic_authentication}" if basic_authentication.length.positive?),
-        ("HEADERS: #{headers}" if headers.length.positive?),
-        ("PARAMETERS: #{parameters}" if parameters.length.positive?),
-        ''
-      ].compact
+      request_options.display_lines
     end
 
     private
 
-    def method
-      @template_yml_hash['method']
-    end
-
-    def target_url
-      @template_yml_hash['target_url']
-    end
-
-    def headers
-      @template_yml_hash['headers'] || {}
-    end
-
-    def parameters
-      @template_yml_hash['parameters'] || {}
-    end
-
-    def basic_authentication
-      @template_yml_hash['basic_authentication'] || {}
-    end
-
     def request_options
-      hash = {}
-      hash[:headers] = headers if headers.length.positive?
-      hash[:body] = parameters if parameters.length.positive?
-      hash[:basic_auth] = basic_authentication if basic_authentication.length.positive?
-      hash
+      @request_options ||= HTTPartyRequestOptions.new(@template_yml_hash)
     end
 
     def execution_output(response)
-      dry_run_output[0..-2] + [
+      request_options.display_lines[0..-2] + [
         "RESPONSE CODE: #{response.code}",
         "RESPONSE BODY: #{response.body}",
         ''
