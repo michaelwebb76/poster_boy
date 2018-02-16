@@ -1,0 +1,11 @@
+method: POST
+target_url: https://an.url
+basic_authentication:
+  user_name:
+  password:
+headers:
+  name: <%= csv_row['column_name'] %>
+parameters:
+  api_token: <%= @api_token ||= ask 'Please enter your API token for an.url:' %>
+  request_body: <%= csv_row['html_email_body'] %>
+  template_id: 
