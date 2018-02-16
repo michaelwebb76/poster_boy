@@ -8,7 +8,10 @@ require_relative '../lib/poster_boy_arguments.rb'
 
 poster_boy_args = PosterBoyArguments.new(ARGV)
 if poster_boy_args.executable?
-  PosterBoy.execute(poster_boy_args)
+  puts
+  lines = PosterBoy.execute(poster_boy_args)
+  puts "OUTPUT:"
+  puts lines
 else
   puts poster_boy_args.errors.join("\n")
 end
