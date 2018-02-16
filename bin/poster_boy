@@ -10,7 +10,8 @@ poster_boy_args = PosterBoyArguments.new(ARGV)
 if poster_boy_args.executable?
   puts
   lines = PosterBoy.execute(poster_boy_args)
-  puts "OUTPUT:"
+  puts ''
+  puts 'REQUESTS:'
   puts lines
 else
   puts poster_boy_args.errors.join("\n")

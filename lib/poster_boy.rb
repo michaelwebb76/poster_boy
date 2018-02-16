@@ -18,7 +18,7 @@ class PosterBoy
     output = []
     CSV.foreach(@poster_boy_arguments.data_file, headers: true) do |csv_row|
       api_request = api_request_for_csv_row(csv_row)
-      output << if @poster_boy_arguments.execute?
+      output << if @poster_boy_arguments.request_actual_execution?
                   api_request.execute
                 else
                   api_request.dry_run_output
@@ -70,6 +70,7 @@ class PosterBoy
     def dry_run_output
       [
         "#{method} #{target_url}",
+        ("BASIC AUTHENTICATION: #{basic_authentication}" if basic_authentication.length.positive?),
         ("HEADERS: #{headers}" if headers.length.positive?),
         ("PARAMETERS: #{parameters}" if parameters.length.positive?),
         ''
@@ -87,17 +88,22 @@ class PosterBoy
     end
 
     def headers
-      @template_yml_hash['headers']
+      @template_yml_hash['headers'] || {}
     end
 
     def parameters
-      @template_yml_hash['parameters']
+      @template_yml_hash['parameters'] || {}
+    end
+
+    def basic_authentication
+      @template_yml_hash['basic_authentication'] || {}
     end
 
     def request_options
       hash = {}
       hash[:headers] = headers if headers.length.positive?
       hash[:body] = parameters if parameters.length.positive?
+      hash[:basic_auth] = basic_authentication if basic_authentication.length.positive?
       hash
     end
 

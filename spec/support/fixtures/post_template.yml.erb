@@ -1,10 +1,7 @@
 method: POST
 target_url: https://an.url
-basic_authentication:
-  user_name:
-  password:
 headers:
   name: <%= csv_row['user_name'] %>
 parameters:
-  api_token: <%= @api_token ||= prompt_for_secret_data 'Please enter the secret thing:' %>
+  api_token: <%= prompt_for_secret_data 'Please enter the secret thing:' %>
   request_body: <%= csv_row['html_email_body'] %>

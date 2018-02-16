@@ -36,7 +36,7 @@ class PosterBoyArguments
     @data_file ||= file_of_valid_type_from_arg('--data', '.csv')
   end
 
-  def execute?
+  def request_actual_execution?
     @argv.include?('--execute')
   end
 

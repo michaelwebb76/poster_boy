@@ -10,7 +10,7 @@ describe PosterBoy do
       PosterBoyArguments,
       template_file: fixture_template_path,
       data_file: fixture_data_path,
-      execute?: execute?
+      request_actual_execution?: request_actual_execution?
     )
   end
 
@@ -20,7 +20,7 @@ describe PosterBoy do
   let(:fixture_data_path) do
     File.dirname(__FILE__).to_s + '/../support/fixtures/data.csv'
   end
-  let(:execute?) { false }
+  let(:request_actual_execution?) { false }
 
   describe '#execute' do
     subject(:execute) { poster_boy.execute }
@@ -49,7 +49,7 @@ describe PosterBoy do
     end
 
     context 'when execute specified' do
-      let(:execute?) { true }
+      let(:request_actual_execution?) { true }
 
       before do
         response = instance_double(HTTParty::Response, code: 200, body: 'OK')
