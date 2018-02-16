@@ -1,6 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../lib/poster_boy.rb'
+require 'pry'
 
-PosterBoy.start
+require_relative '../lib/poster_boy.rb'
+require_relative '../lib/poster_boy_arguments.rb'
+
+poster_boy_args = PosterBoyArguments.new(ARGV)
+if poster_boy_args.executable?
+  PosterBoy.execute(poster_boy_args)
+else
+  puts poster_boy_args.errors.join("\n")
+end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module PosterBoy
-  VERSION = '0.0.1'.freeze
+class PosterBoy
+  VERSION = '0.0.1'
 end

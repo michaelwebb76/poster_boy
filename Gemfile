@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in bellroy-money.gemspec
+# Specify your gem's dependencies in paper_boy.gemspec
 gemspec
 
 group :development, :test do

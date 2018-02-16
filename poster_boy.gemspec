@@ -7,8 +7,8 @@ require 'poster_boy/version'
 Gem::Specification.new do |spec|
   spec.name          = 'poster_boy'
   spec.version       = PosterBoy::VERSION
-  spec.authors       = ['Bellroy Tech Team']
-  spec.email         = ['tech@bellroy.com']
+  spec.authors       = ['Michael Webb']
+  spec.email         = ['moggyboy@gmail.com']
 
   spec.summary       = 'Poster Boy'
   spec.description   = 'A convenience tool for creating bulk API requests.'
@@ -27,6 +27,8 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'highline'
 
   spec.add_development_dependency 'bundler', '>= 1.13'
   spec.add_development_dependency 'rake', '>= 10.0'

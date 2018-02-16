@@ -4,8 +4,7 @@ basic_authentication:
   user_name:
   password:
 headers:
-  name: <%= csv_row['column_name'] %>
+  name: <%= csv_row['user_name'] %>
 parameters:
-  api_token: <%= @api_token ||= ask 'Please enter your API token for an.url:' %>
+  api_token: <%= @api_token ||= prompt_for_secret_data 'Please enter the secret thing:' %>
   request_body: <%= csv_row['html_email_body'] %>
-  template_id: 
