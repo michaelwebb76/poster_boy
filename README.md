@@ -43,7 +43,8 @@ There are two options for substituting dynamic data into the request:
 
 1. Use the `prompt_for_secret_data` method. This will prompt the user to type in the value at
    runtime. This is useful for secret things (like passwords or API tokens) that you don't want to
-   leave lying around unencrypted on your file system.
+   leave lying around unencrypted on your file system. Each `prompt_for_secret_data` call you make
+   is memoized using the prompt string, so you'll only be prompted once for each individual value.
 2. Access the data from each row of the CSV file using the convention `csv_row['column_name']`.
 
 ## Data files
