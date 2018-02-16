@@ -10,6 +10,7 @@ PATH
   specs:
     poster_boy (0.0.1)
       highline
+      httparty
 
 GEM
   remote: https://rubygems.org/
@@ -86,6 +87,8 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     highline (1.7.10)
     http_parser.rb (0.6.0)
+    httparty (0.16.0)
+      multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -103,6 +106,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     nenv (0.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)

@@ -2,6 +2,7 @@
 
 require 'csv'
 require 'highline/import'
+require 'httparty'
 
 class PosterBoy
   def self.execute(poster_boy_arguments)
@@ -41,10 +42,29 @@ class PosterBoy
 
   class ApiRequest
     def initialize(template_yml)
-      @template_yml_hash = YAML.load(template_yml)
+      @template_yml_hash = YAML.safe_load(template_yml)
     end
 
     def execute
+      response = case method.upcase
+                 when 'GET'
+                   HTTParty.get(target_url, request_options)
+                 when 'POST'
+                   HTTParty.post(target_url, request_options)
+                 when 'PATCH'
+                   HTTParty.patch(target_url, request_options)
+                 when 'PUT'
+                   HTTParty.put(target_url, request_options)
+                 when 'DELETE'
+                   HTTParty.delete(target_url, request_options)
+                 when 'HEAD'
+                   HTTParty.head(target_url, request_options)
+                 when 'OPTIONS'
+                   HTTParty.options(target_url, request_options)
+                 else
+                   raise "unknown request method #{method}"
+                 end
+      execution_output(response)
     end
 
     def dry_run_output
@@ -72,6 +92,21 @@ class PosterBoy
 
     def parameters
       @template_yml_hash['parameters']
+    end
+
+    def request_options
+      hash = {}
+      hash[:headers] = headers if headers.length.positive?
+      hash[:body] = parameters if parameters.length.positive?
+      hash
+    end
+
+    def execution_output(response)
+      dry_run_output[0..-2] + [
+        "RESPONSE CODE: #{response.code}",
+        "RESPONSE BODY: #{response.body}",
+        ''
+      ]
     end
   end
 
