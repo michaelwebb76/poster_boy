@@ -34,7 +34,7 @@ describe HTTPartyRequestOptions do
         body: {
           'api_token' => 'abc123',
           'data' => 'smelly'
-        },
+        }.to_json,
         headers: { 'name' => 'bob' }
       )
     end
@@ -47,7 +47,7 @@ describe HTTPartyRequestOptions do
           body: {
             'api_token' => 'abc123',
             'data' => 'smelly'
-          },
+          }.to_json,
           headers: { 'name' => 'bob' }
         )
       end

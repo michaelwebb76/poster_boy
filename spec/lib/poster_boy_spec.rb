@@ -55,14 +55,14 @@ describe PosterBoy do
         response = instance_double(HTTParty::Response, code: 200, body: 'OK')
         first_options = {
           headers: { 'name' => 'mike' },
-          body: { 'api_token' => secret, 'request_body' => '<h1>Get some stuff</h1>' }
+          body: { 'api_token' => secret, 'request_body' => '<h1>Get some stuff</h1>' }.to_json
         }
         expect(HTTParty)
           .to receive(:post).with('https://an.url', first_options).and_return(response)
 
         second_options = {
           headers: { 'name' => 'john' },
-          body: { 'api_token' => secret, 'request_body' => '<h2>Don\'t get some stuff</h2>' }
+          body: { 'api_token' => secret, 'request_body' => '<h2>Don\'t get some stuff</h2>' }.to_json
         }
         expect(HTTParty)
           .to receive(:post).with('https://an.url', second_options).and_return(response)

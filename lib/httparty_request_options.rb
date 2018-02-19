@@ -8,7 +8,7 @@ class HTTPartyRequestOptions
   def to_h
     hash = {}
     hash[:headers] = headers if headers?
-    hash[:body] = parameters if parameters?
+    hash[:body] = parameters.to_json if parameters?
     hash[:basic_auth] = basic_authentication if basic_authentication?
     hash
   end
