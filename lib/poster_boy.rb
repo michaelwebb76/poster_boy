@@ -3,7 +3,7 @@
 require 'csv'
 require 'highline/import'
 require 'httparty'
-require 'httparty_request_options'
+require_relative 'httparty_request_options'
 
 class PosterBoy
   def self.execute(poster_boy_arguments)

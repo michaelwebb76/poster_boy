@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'httparty_request_options'
+
 class PosterBoyArguments
   BLURB = 'PosterBoy is a tool you give a request template to, and a CSV, and it will attempt ' \
           'to generate a request for each line in the CSV.'
