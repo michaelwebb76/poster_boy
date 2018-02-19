@@ -25,7 +25,6 @@ group :development do
   gem 'pry-rails'
   gem 'spring'
   gem 'spring-watcher-listen'
-  gem 'trike-git-hooks', git: 'git@git.trikeapps.com:trike/trike-git-hooks.git'
   gem 'web-console'
 end
 
