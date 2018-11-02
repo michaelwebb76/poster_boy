@@ -15,17 +15,25 @@
 #
 # Uncomment the following lines to make the configuration take effect.
 
-#PreCommit:
+verify_signatures: false
+
+PreCommit:
+  MasterMerger:
+    enabled: true
+    command: ['bundle', 'exec', 'master-merger']
+  TrailingWhitespace:
+    enabled: true
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures
-#
-#  TrailingWhitespace:
-#    enabled: true
-#    exclude:
-#      - '**/db/structure.sql' # Ignore trailing whitespace in generated files
-#
-#PostCheckout:
+PostCheckout:
+  ReadersDigest:
+    enabled: true
+    on_fail: warn
+    command: ['bundle', 'exec', 'readers-digest']
+  #StoryKickoff:
+    #enabled: true
+    #required_executable: './bin/story-kickoff'
 #  ALL: # Special hook name that customizes all hooks of this type
 #    quiet: true # Change all post-checkout hooks to only display output on failure
 #

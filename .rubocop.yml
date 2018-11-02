@@ -23,7 +23,7 @@ AllCops:
   - public/**/*
   - tmp/**/*
   - vendor/**/*
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 Metrics/LineLength:
   Max: 100
 Layout/MultilineMethodCallIndentation:
@@ -42,6 +42,8 @@ RSpec/NestedGroups:
   Max: 10
 RSpec/MessageExpectation:
   Enabled: false
+RSpec/MissingExampleGroupArgument:
+  Enabled: false
 require:
 - rubocop-rspec
 - test_prof/rubocop
@@ -55,3 +57,5 @@ RSpec/AggregateFailures:
   Enabled: true
   Include:
   - spec/**/*.rb
+Rails/InverseOf:
+  Enabled: false
